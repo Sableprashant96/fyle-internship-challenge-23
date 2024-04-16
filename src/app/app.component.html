@@ -1,5 +1,142 @@
-<div class="grid h-screen place-items-center">
-  <div class="font-bold text-3xl">
-    Fyle Internship Challenge
+<div class="flex flex-col items-center justify-center">
+  <div
+    class="max-w-fit flex flex-wrap border-4 rounded-xl shadow-xl p-8 flex-col md:flex-row flex-grow h-full items-center justify-between">
+    <div>
+      <!-- input field to take username -->
+      <input class="flex border p-2 m-2 md:w-64 rounded-xl italic shadow-xl w-full"
+        placeholder="Github username goes here" [(ngModel)]="User"/>
+    </div>
+    <!-- To change no of repositories to be shown -->
+    <div class="md:flex-row flex-col md:m-auto items-center">
+      <label for="perPage" class="m-2 font-semibold">No of Repos</label>
+      <select [(ngModel)]="reposPerPage" (change)="currentPage = 1; UserDetailsAndRepos()" id="perPage"
+        class="border-2 p-2 m-2 rounded min-w-min hover:border-teal-400">
+        <option value="5">05</option>
+        <option value="10">10</option>
+        <option value="25">25</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+    </div>
+    <div>
+      <button
+        class="md:ml-4 m-2 font-semibold text-lg tracking-wide rounded-full border-teal-400 border-2 w-12 h-12 text-teal-400 p-2 shadow-xl hover:bg-teal-400 hover:text-white"
+        (click)="UserDetailsAndRepos()">
+        <!-- Search icon -->
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+          stroke-width="2" viewBox="0 0 24 24">
+          <path d="M21 21l-5.2-5.2"></path>
+          <circle cx="10" cy="10" r="8"></circle>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+
+  <!-- Show empty state if fails loading  -->
+  <div *ngIf="isEmptyState"><app-empty-zero></app-empty-zero></div>
+
+
+  <!-- Profile bio  -->
+  <!-- Loader  -->
+  <div *ngIf="!isEmptyState">
+    <div *ngIf="isLoading; else dynamicContent">
+      <app-loader-user></app-loader-user>
+    </div>
+    <!-- User details -->
+    <ng-template #dynamicContent>
+      <app-bio [noOfRepos]="noOfRepos" [isLoading]="isLoading" [userAvatarUrl]="userAvatarUrl" [bio]="bio" [name]="name"
+        [location]="location" [htmlUrl]="htmlUrl" [twitter]="twitter" [blog]="blog"></app-bio>
+    </ng-template>
+
+
+    <!-- Repositories section  -->
+    <!-- Loader  -->
+    <app-loader-repo *ngIf="isLoading || isLoadingRepo; else repoContent"></app-loader-repo>
+    <!-- Repositories List  -->
+    <ng-template #repoContent>
+      <app-repos [repos]="repos"></app-repos>
+    </ng-template>
+  </div>
+
+  <!-- Pagination -->
+  <div *ngIf="!isEmptyState">
+    <div *ngIf="repos.length > 0"
+      class="max-w-fit flex flex-wrap rounded-xl shadow-xl p-8 flex-col  flex-grow h-full justify-between items-center">
+
+      <div class="flex flex-col md:flex-row justify-center items-center">
+        <!-- First button -->
+        <div>
+          <button [disabled]="currentPage === 1"
+            [ngClass]="currentPage === 1?'bg-gray-400 m-1 font-semibold text-xl tracking-wide rounded-full w-16 h-9 border-gray-400 text-white cursor-not-allowed hover:bg-gray-400':
+              'font-semibold text-xl tracking-wide w-16 h-9 rounded-full shadow-xl bg-transparent border-teal-400 text-teal-400 m-1 hover:bg-teal-400 border-2 hover:text-white'"
+            (click)="currentPage = 1; findRepositories()">
+            << </button>
+        </div>
+
+        <!-- Previous button -->
+        <div>
+          <button [disabled]="currentPage === 1"
+            [ngClass]="currentPage === 1?'bg-gray-400 m-1 font-semibold text-xl tracking-wide rounded-full w-9 h-9 border-gray-400 text-white cursor-not-allowed hover:bg-gray-400':
+        'font-semibold text-xl tracking-wide w-9 h-9 rounded-full shadow-xl bg-transparent border-teal-400 text-teal-400 m-1 hover:bg-teal-400 border-2 hover:text-white'"
+            (click)="currentPage = currentPage - 1; findRepositories()">
+            &lt;
+          </button>
+        </div>
+
+        <!-- visible page buttons -->
+        <div class="rounded-xl flex justify-center flex-row md:flex flex-wrap">
+          <button *ngFor="let page of pages" [disabled]="page === currentPage"
+            [ngClass]="page === currentPage ? 'bg-gray-400 font-semibold text-sm tracking-wide m-1 rounded-full w-7 h-7 border-gray-400 text-white cursor-not-allowed hover:bg-gray-400' :
+          'font-semibold text-sm tracking-wide w-7 h-7 rounded-full m-1 shadow-xl bg-transparent border-teal-400 text-teal-400  hover:bg-teal-400 border-2 hover:text-white'"
+            (click)="currentPage = page; findRepositories()">
+            {{ page }}
+          </button>
+        </div>
+
+        <!-- Next button -->
+        <div>
+          <button [disabled]="currentPage === pages[pages.length - 1]"
+            [ngClass]="currentPage === pages[pages.length - 1]? 
+        'bg-gray-400 m-1 font-semibold text-xl tracking-wide rounded-full w-9 h-9 border-gray-400 text-white cursor-not-allowed hover:bg-gray-400':
+        'font-semibold text-xl tracking-wide w-9 h-9 rounded-full shadow-xl bg-transparent border-teal-400 text-teal-400 m-1 hover:bg-teal-400 border-2 hover:text-white'"
+            (click)="currentPage = currentPage + 1; findRepositories()">
+            &gt;
+          </button>
+        </div>
+        <!-- last button -->
+        <div>
+          <button [disabled]="currentPage === pages[pages.length - 1]"
+            [ngClass]="currentPage === pages[pages.length - 1]? 
+        'bg-gray-400 m-1 font-semibold text-xl tracking-wide rounded-full w-16 h-9 border-gray-400 text-white cursor-not-allowed hover:bg-gray-400':
+        'font-semibold text-xl tracking-wide w-16 h-9 rounded-full shadow-xl bg-transparent border-teal-400 text-teal-400 m-1 hover:bg-teal-400 border-2 hover:text-white'"
+            (click)="currentPage = totalNumberOfPages; findRepositories()">
+            >>
+          </button>
+        </div>
+      </div>
+
+
+      <!-- Select no repos per page drop-down -->
+      <div>
+        <select [(ngModel)]="reposPerPage" (change)="currentPage = 1; UserDetailsAndRepos()" id="perPage"
+          class="border-2 p-2 m-2 rounded min-w-min hover:border-teal-400">
+          <option value="5">05</option>
+          <option value="10">10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+      </div>
+
+      <!-- pages details   -->
+      <div class="mt-2">
+        <p class="text-gray-600">
+          Showing page {{ currentPage }} out of {{ totalNumberOfPages }} pages.
+          Visible range: {{ pages[0] }} - {{ pages[pages.length - 1] }}
+        </p>
+      </div>
+
+    </div>
   </div>
 </div>

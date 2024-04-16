@@ -1,0 +1,19 @@
+<div
+class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 justify-center mt-10">
+    <!-- shows available Public repos related to user -->
+<div
+  *ngFor="let repo of repos"
+  class="p-4 m-2 max-w-md flex h-full border-2 flex-col rounded-2xl shadow-lg"
+>
+  <div class="px-2 text-xl font-bold">{{ repo.name }}</div>
+  <div class="p-2 italic">{{ repo.description }}</div>
+  <div class="flex flex-wrap justify-start">
+    <!-- available topics -->
+    <span
+      *ngFor="let topic of repo.topics"
+      class="px-2 py-1 mx-2 my-1 bg-teal-200 text-teal-600 rounded shadow-lg"
+      >{{ topic }}</span
+    >
+  </div>
+</div>
+</div>

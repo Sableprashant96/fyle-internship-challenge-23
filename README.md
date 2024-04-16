@@ -1,3 +1,74 @@
+Hosted App link - [link]()
+
+# Run Test Cases Procedure
+
+## 1. Prerequisites
+
+Before running the tests, ensure you have the following prerequisites installed:
+
+- Node.js and npm
+- Angular CLI (`npm install -g @angular/cli`)
+- Cloned this GitHub Repo
+
+## 2. Run Commands
+
+### I. Run Tests for the Full Project
+To run tests for the entire project, execute the following command:
+
+```bash
+ng test
+```
+
+### II. Run Tests for a Specific File
+To run tests for a specific file (e.g., app.component.spec.ts), use the following command:
+
+```bash
+ng test --include=src/app/app.component.spec.ts
+```
+
+### III. Open test results in browser
+It will popup automatically in browser (host port might be different in your case).
+
+```bash
+open http://localhost:9876/
+```
+Sample Report
+
+ ![karma]()
+
+## 3. Check Coverage Report 
+
+### I. Check Coverage for the Full Project
+To check the code coverage for the entire project, run:
+
+```bash
+ng test --code-coverage
+```
+
+### II. Check Coverage for a Specific File
+To check code coverage for a specific file (e.g., app.component.spec.ts), use:
+
+```bash
+ng test --include=src/app/app.component.spec.ts --code-coverage
+```
+
+### III. View Coverage Details
+After running the coverage command, navigate to the `fyle-frontend-challenge-23/coverage/fyle-frontend-challenge/app` folder. Open `index.html` in your browser to view the coverage percentage and details.
+
+Sample Reports
+
+
+ ![instanbul]()
+ ![instanbul_2]()
+
+## 3. Documentation for Angular Test
+For more help visit official angular CLI documentation website
+[Test Documentation](https://angular.io/cli/test)
+
+
+
+
+
 # Fyle Frontend Challenge
 
 ## Who is this for?
