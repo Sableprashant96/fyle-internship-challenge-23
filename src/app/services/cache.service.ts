@@ -13,7 +13,7 @@ export class CacheService {
 
     if (cachedEntry) {
       // Checks if the entry has exceeded the time limit
-      if (Date.now() - cachedEntry.timestamp > 30000) {
+      if (Date.now() - cachedEntry.timestamp > 300000) {
         // if Entry has expired then remove it from the cache
         this.cache.delete(key);
         return undefined;

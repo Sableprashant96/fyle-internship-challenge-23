@@ -1,4 +1,4 @@
-Hosted App link - [link]()
+Hosted App link - [link](https://fyle-internship-challenge-23-1j7p-l0wnng6z4.vercel.app/)
 
 # Run Test Cases Procedure
 
@@ -34,7 +34,7 @@ open http://localhost:9876/
 ```
 Sample Report
 
- ![karma]()
+ ![karma](https://github.com/Sableprashant96/fyle-internship-challenge-23/blob/master/src/assets/Karma.PNG)
 
 ## 3. Check Coverage Report 
 
@@ -58,8 +58,8 @@ After running the coverage command, navigate to the `fyle-frontend-challenge-23/
 Sample Reports
 
 
- ![instanbul]()
- ![instanbul_2]()
+ ![instanbul](https://github.com/Sableprashant96/fyle-internship-challenge-23/blob/master/src/assets/isntanbul.PNG)
+ ![instanbul_2](https://github.com/Sableprashant96/fyle-internship-challenge-23/blob/master/src/assets/isntanbul_2.PNG)
 
 ## 3. Documentation for Angular Test
 For more help visit official angular CLI documentation website
