@@ -9,7 +9,7 @@ export class BioComponent {
   @Input() noOfRepos : number = 0;
   @Input() isLoading: boolean = false;
   @Input() userAvatarUrl: string = '';
-  @Input() bio: any = [];
+  @Input() bio: string | null = '';
   @Input() name: string = '';
   @Input() location: string = '';
   @Input() htmlUrl: string = '';

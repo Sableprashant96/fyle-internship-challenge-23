@@ -58,7 +58,7 @@ export class ApiService {
       
         return this.httpClient.get<Repo[]>(url).pipe(
           tap(data => {
-            this.cacheService.set(cacheKey, data);
+            this.cacheService.set<Repo[]>(cacheKey, data);
           }),
           catchError((error: HttpErrorResponse) => {                                    
             let errorMessage = '';

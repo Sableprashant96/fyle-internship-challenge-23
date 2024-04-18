@@ -19,15 +19,15 @@ export class AppComponent implements OnInit {
   isLoading: boolean = false;
   isEmptyState : boolean = false;
   userAvatarUrl: string = '';
-  bio: any = [];
+  bio: string | null = '';
   name: string = '';
   location: string = '';
   htmlUrl: string = '';
   twitter: string = '';
-  repos: any[] = [];
+  repos: Repo[] = [];
   isLoadingRepo: boolean = false;
   blog : string ='';
-  pages : any = [];
+  pages : number[] = [];
   maxVisiblePages: number = 8;
   totalNumberOfPages : number = 0;
 

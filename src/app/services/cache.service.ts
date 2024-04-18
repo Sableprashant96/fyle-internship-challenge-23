@@ -27,14 +27,14 @@ export class CacheService {
   set<T>(key: string, value: T): void {
     // Stores the entry along with the current timestamp
     this.cache.set(key, { data: value, timestamp: Date.now() });
-    console.log("key: " + key)
+    // console.log("key: " + key)
   }
 
 
-  clear(): void {
-    //clears the cache
-    this.cache.clear();
-  }
+  // clear(): void {
+  //   //clears the cache
+  //   this.cache.clear();
+  // }
 }
 
 

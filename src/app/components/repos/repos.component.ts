@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Repo } from '../../interfaces/repo.interface'
 
 @Component({
   selector: 'app-repos',
@@ -7,6 +8,6 @@ import { Component, Input } from '@angular/core';
 })
 export class ReposComponent {
 
-  @Input() repos: any[] = [];
+  @Input() repos: Repo[] = [];
 
 }
